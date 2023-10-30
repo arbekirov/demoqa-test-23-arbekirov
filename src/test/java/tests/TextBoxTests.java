@@ -7,6 +7,7 @@ import java.io.File;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.byValue;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -23,19 +24,19 @@ public class TextBoxTests {
     @Test
     void formCreateStudent() {
         open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         $("#firstName").setValue("Arseny");
         $("#lastName").setValue("Bek");
         $("#userEmail").setValue("arb@sink.com");
-        $("[for='gender-radio-1']").click();
+        $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("8989777777");
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__year-select").click();
-        $(byValue("1996")).click();
-        $(".react-datepicker__month-select").click();
-        $(byValue("4")).click();
+        $(".react-datepicker__year-select").selectOption("1996");
+        $(".react-datepicker__month-select").selectOption("May");
         $(".react-datepicker__day--015").click();
         $("#subjectsInput").val("History").pressEnter();
-        $("[for='hobbies-checkbox-1']").click();
+        $("#hobbiesWrapper").$(byText("Sports")).click();
         $("#uploadPicture").uploadFromClasspath("photography.png");
         $("#currentAddress").setValue("street road");
         $("#state").scrollTo().click();
