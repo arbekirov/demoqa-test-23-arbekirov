@@ -21,27 +21,23 @@ public class TextBoxTests extends TestBase{
                 .setEmail("arb@sink.com")
                 .setGender("Male")
                 .setUserNumber("8989777777")
-                .setDateOfBirth("15", "May","1996");
-        $("#subjectsInput").val("History").pressEnter();
-        $("#hobbiesWrapper").$(byText("Sports")).click();
-        $("#uploadPicture").uploadFromClasspath("photography.png");
-        $("#currentAddress").setValue("street road");
-        $("#state").scrollTo().click();
-        $("#react-select-3-input").val("NCR").pressEnter();
-        $("#city").click();
-        $("#react-select-4-input").val("Delhi").pressEnter().pressTab().pressEnter();
+                .setDateOfBirth("15", "May","1996")
+                .setSubject("History")
+                .setHobbiesWrapper("Sports")
+                .setUploadPicture("photography.png")
+                .setAddress("street road")
+                .setStateAndCity("NCR","Delhi");
 
-        $x("//td[text()='Student Name']/following::td[text()='Arseny Bek']").shouldBe(visible);
+
         registrationPage.checkResult("Student Name", "Arseny Bek")
-                .checkResult("Student Email", "arb@sink.com");
-        $x("//td[text()='Student Email']/following::td[text()='arb@sink.com']").shouldBe(visible);
-        $x("//td[text()='Gender']/following::td[text()='Male']").shouldBe(visible);
-        $x("//td[text()='Mobile']/following::td[text()='8989777777']").shouldBe(visible);
-        $x("//td[text()='Date of Birth']/following::td[text()='15 May,1996']").shouldBe(visible);
-        $x("//td[text()='Subjects']/following::td[text()='History']").shouldBe(visible);
-        $x("//td[text()='Hobbies']/following::td[text()='Sports']").shouldBe(visible);
-        $x("//td[text()='Picture']/following::td[text()='photography.png']").shouldBe(visible);
-        $x("//td[text()='Address']/following::td[text()='street road']").shouldBe(visible);
-        $x("//td[text()='State and City']/following::td[text()='NCR Delhi']").shouldBe(visible);
+                .checkResult("Student Email", "arb@sink.com")
+                .checkResult("Gender", "Male")
+                .checkResult("Mobile", "8989777777")
+                .checkResult("Date of Birth", "15 May,1996")
+                .checkResult("Subjects", "History")
+                .checkResult("Hobbies", "Sports")
+                .checkResult("Picture", "photography.png")
+                .checkResult("Address", "street road")
+                .checkResult("State and City", "NCR Delhi");
     }
 }
