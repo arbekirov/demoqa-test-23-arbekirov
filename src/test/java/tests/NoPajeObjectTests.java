@@ -1,27 +1,40 @@
 package tests;
-
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import pages.RegistrationPage;
 
+import java.io.File;
+
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.byValue;
 import static com.codeborne.selenide.Selenide.*;
 
-public class TextBoxTests extends TestBase{
+public class NoPajeObjectTests {
 
-    RegistrationPage registrationPage = new RegistrationPage();
+    @BeforeAll
+    static void beforeAll() {
+        Configuration.browserSize = "1920x1080";
+        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.timeout = 5000; // default 4000;
+    }
 
     @Test
     void formCreateStudent() {
-        registrationPage.openPage()
-                .setFirstName("Arseny")
-                .setLastName("Bek")
-                .setEmail("arb@sink.com")
-                .setGender("Male")
-                .setUserNumber("8989777777")
-                .setDateOfBirth("15", "May","1996");
+        open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+        $("#firstName").setValue("Arseny");
+        $("#lastName").setValue("Bek");
+        $("#userEmail").setValue("arb@sink.com");
+        $("#genterWrapper").$(byText("Male")).click();
+        $("#userNumber").setValue("8989777777");
+        $("#dateOfBirthInput").click();
+        $(".react-datepicker__year-select").selectOption("1996");
+        $(".react-datepicker__month-select").selectOption("May");
+        $(".react-datepicker__day--015").click();
         $("#subjectsInput").val("History").pressEnter();
         $("#hobbiesWrapper").$(byText("Sports")).click();
         $("#uploadPicture").uploadFromClasspath("photography.png");
@@ -32,8 +45,6 @@ public class TextBoxTests extends TestBase{
         $("#react-select-4-input").val("Delhi").pressEnter().pressTab().pressEnter();
 
         $x("//td[text()='Student Name']/following::td[text()='Arseny Bek']").shouldBe(visible);
-        registrationPage.checkResult("Student Name", "Arseny Bek")
-                .checkResult("Student Email", "arb@sink.com");
         $x("//td[text()='Student Email']/following::td[text()='arb@sink.com']").shouldBe(visible);
         $x("//td[text()='Gender']/following::td[text()='Male']").shouldBe(visible);
         $x("//td[text()='Mobile']/following::td[text()='8989777777']").shouldBe(visible);
