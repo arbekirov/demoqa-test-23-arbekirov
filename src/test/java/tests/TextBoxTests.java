@@ -40,4 +40,30 @@ public class TextBoxTests extends TestBase{
                 .checkResult("Address", "street road")
                 .checkResult("State and City", "NCR Delhi");
     }
+    @Test
+    void formCreateStudentMinimal() {
+        registrationPage.openPage()
+                .setFirstName("Arseny")
+                .setLastName("Bek")
+                .setGender("Male")
+                .setUserNumber("8989777777")
+                .setSubmitForm();
+
+
+
+        registrationPage.checkResultMinimum("Student Name", "Arseny Bek")
+                .checkResultMinimum("Gender", "Male")
+                .checkResultMinimum("Mobile","8989777777");
+
+    }
+    @Test
+    void formNoCreateStudent() {
+        registrationPage.openPage()
+                .setSubmitForm();
+
+
+
+        registrationPage.checkInputInvalidBorderColor("border-color","rgb(220, 53, 69)")
+                .checkRadioInvalidBorderColor("border-color","rgb(220, 53, 69)");
+    }
 }

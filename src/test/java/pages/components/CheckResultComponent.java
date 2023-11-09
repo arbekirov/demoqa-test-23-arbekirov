@@ -20,5 +20,7 @@ public class CheckResultComponent {
         $x("//td[text()='Picture']/following::td[text()='photography.png']").shouldBe(visible);
         $x("//td[text()='Address']/following::td[text()='street road']").shouldBe(visible);
         $x("//td[text()='State and City']/following::td[text()='NCR Delhi']").shouldBe(visible);
+
     }
 }
+
